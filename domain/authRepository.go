@@ -18,10 +18,8 @@ type AuthRepositoryDb struct {
 
 func (d AuthRepositoryDb) FindBy(username, password string) (*Login, *errs.AppError) {
 	var login Login
-	sqlVerify := `SELECT username, u.customer_id, role, group_concat(a.account_id) as account_numbers FROM users u
-                  LEFT JOIN accounts a ON a.customer_id = u.customer_id
-                WHERE username = ? and password = ?
-                GROUP BY a.customer_id`
+	sqlVerify := `SELECT u.username, u.customer_id, role FROM users u
+                WHERE u.username = ? and u.password = ?`
 	err := d.client.Get(&login, sqlVerify, username, password)
 	if err != nil {
 		if err == sql.ErrNoRows {

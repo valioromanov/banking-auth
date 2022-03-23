@@ -6,9 +6,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/ashishjuyal/banking-auth/domain"
-	"github.com/ashishjuyal/banking-auth/service"
-	"github.com/ashishjuyal/banking-lib/logger"
+	"banking-auth/domain"
+	"banking-auth/logger"
+	"banking-auth/service"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
@@ -24,7 +25,7 @@ func Start() {
 	router.HandleFunc("/auth/verify", ah.Verify).Methods(http.MethodGet)
 
 	address := "localhost"
-	port := ":8080"
+	port := ":8181"
 	logger.Info(fmt.Sprintf("Starting OAuth server on %s:%s ...", address, port))
 	log.Fatal(http.ListenAndServe(address+port, router))
 }

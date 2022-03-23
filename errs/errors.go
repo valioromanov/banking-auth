@@ -44,6 +44,13 @@ func NewAuthorizationError(message string) *AppError {
 	}
 }
 
+func NewAuthenticationError(message string) *AppError {
+	return &AppError{
+		Code:    http.StatusUnauthorized,
+		Message: message,
+	}
+}
+
 func (e AppError) AsMessage() *AppError {
 	return &AppError{
 		Code:    0,
